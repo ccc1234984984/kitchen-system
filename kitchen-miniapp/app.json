@@ -1,0 +1,27 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/menu/menu",
+    "pages/mine/mine",
+    "pages/order-detail/order-detail"
+  ],
+  "window": {
+    "navigationBarTitleText": "智慧餐厅",
+    "navigationBarBackgroundColor": "#c87a4f",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f0ea"
+  },
+  "tabBar": {
+    "custom": false,
+    "color": "#8c8c8c",
+    "selectedColor": "#c87a4f",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/menu/menu", "text": "菜单", "iconPath": "images/menu.png", "selectedIconPath": "images/menu_selected.png" },
+      { "pagePath": "pages/mine/mine", "text": "我的", "iconPath": "images/mine.png", "selectedIconPath": "images/mine_selected.png" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

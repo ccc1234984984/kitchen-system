@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: kitchen-system
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/kitchen_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
+
+oss:
+  endpoint: ${OSS_ENDPOINT:oss-cn-beijing.aliyuncs.com}
+  access-key-id: ${OSS_ACCESS_KEY_ID}
+  access-key-secret: ${OSS_ACCESS_KEY_SECRET}
+  bucket-name: ${OSS_BUCKET_NAME:hccy}
+
+ai:
+  image:
+    endpoint: ${AI_IMAGE_ENDPOINT:https://apihub.agnes-ai.com/v1/images/generations}
+    api-key: ${AI_IMAGE_API_KEY}
+    model: ${AI_IMAGE_MODEL:agnes-image-2.0-flash}
+    size: ${AI_IMAGE_SIZE:1024x1024}
+
+mybatis-plus:
+  type-aliases-package: com.kitchen.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

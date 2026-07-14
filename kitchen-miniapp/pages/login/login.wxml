@@ -1,0 +1,9 @@
+<view class="login-page">
+  <view class="login-box">
+    <view class="login-title">智慧餐厅</view>
+    <view class="login-subtitle">手机号登录</view>
+    <input class="phone-input" type="number" maxlength="11" placeholder="请输入11位手机号" value="{{phone}}" bindinput="onPhoneInput" />
+    <view class="login-btn" bindtap="onLogin">{{loading ? '登录中...' : '登录'}}</view>
+    <view class="login-tip">未注册将自动注册，默认姓名可在"我的"页面修改</view>
+  </view>
+</view>

@@ -1,0 +1,1 @@
+ALTER TABLE dish ADD COLUMN image_url VARCHAR(500) DEFAULT '' COMMENT '菜品图片OSS地址' AFTER price;

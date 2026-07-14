@@ -1,0 +1,92 @@
+<view class="menu-page">
+  <view class="search-bar">
+    <view class="search-input">
+      <text class="search-icon">🔍</text>
+      <input
+        placeholder="搜索菜品"
+        placeholder-class="placeholder"
+        bindinput="onSearchInput"
+        value="{{searchKeyword}}"
+      />
+    </view>
+  </view>
+
+  <scroll-view class="category-tabs" scroll-x enable-flex>
+    <view
+      wx:for="{{categories}}"
+      wx:key="id"
+      class="tab-item {{activeCategory === item.id ? 'active' : ''}}"
+      data-id="{{item.id}}"
+      bindtap="onCategoryTap"
+    >
+      {{item.name}}
+    </view>
+  </scroll-view>
+
+  <scroll-view class="dish-list" scroll-y>
+    <view wx:if="{{loading}}" class="loading"><text>加载中...</text></view>
+    <view wx:elif="{{filteredDishes.length === 0}}" class="empty-state">
+      <text class="icon">🍽️</text>
+      <text class="text">暂无菜品</text>
+    </view>
+    <view wx:else class="dish-items">
+      <view wx:for="{{filteredDishes}}" wx:key="id" class="dish-item">
+        <image wx:if="{{item.imageUrl}}" src="{{item.imageUrl}}" class="dish-item-img" mode="aspectFill"></image>
+        <view wx:else class="dish-item-img-placeholder"></view>
+        <view class="dish-info">
+          <view class="dish-name">{{item.name}}</view>
+          <view class="dish-desc ellipsis-2">{{item.description || ''}}</view>
+          <view class="dish-bottom">
+            <view class="dish-price">
+              <text class="price">{{item.price}}</text>
+            </view>
+            <view class="quantity-control">
+              <view wx:if="{{item.quantity > 0}}" class="btn-minus" data-id="{{item.id}}" bindtap="onMinusTap">-</view>
+              <text wx:if="{{item.quantity > 0}}" class="quantity">{{item.quantity}}</text>
+              <view class="btn-plus" data-id="{{item.id}}" bindtap="onPlusTap">+</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{cartCount > 0}}" class="cart-bar">
+    <view class="cart-bar-left">
+      <view class="cart-bar-icon">🛒</view>
+      <text class="cart-bar-total">¥{{cartTotal}}</text>
+    </view>
+    <view class="cart-bar-right" bindtap="showCartPopup">
+      <text class="cart-bar-count">{{cartCount}}件</text>
+      <text class="cart-bar-btn">去结算</text>
+    </view>
+  </view>
+
+  <view wx:if="{{showCart}}" class="popup-mask" bindtap="hideCartPopup"></view>
+  <view wx:if="{{showCart}}" class="cart-popup">
+    <view class="popup-header">
+      <text class="popup-title">已选菜品</text>
+      <text class="popup-clear" bindtap="onClearCart">清空</text>
+    </view>
+    <view wx:if="{{tableOptions.length > 0}}" class="popup-table">
+      <text class="popup-table-label">餐桌：</text>
+      <picker range="{{tableOptions}}" range-key="label" value="{{selectedTableIndex}}" bindchange="onTableChange">
+        <view class="popup-table-value">{{selectedTable ? selectedTable.label : '请选择餐桌'}}</view>
+      </picker>
+    </view>
+    <scroll-view class="popup-list" scroll-y>
+      <view wx:for="{{cartItems}}" wx:key="id" class="popup-item">
+        <text class="popup-item-name">{{item.name}}</text>
+        <view class="popup-item-control">
+          <view class="btn-minus" data-id="{{item.id}}" bindtap="onMinusTap">-</view>
+          <text class="quantity">{{item.quantity}}</text>
+          <view class="btn-plus" data-id="{{item.id}}" bindtap="onPlusTap">+</view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="popup-footer">
+      <text class="popup-total">合计：¥{{cartTotal}}</text>
+      <button class="popup-submit" bindtap="onSubmitOrder">下单</button>
+    </view>
+  </view>
+</view>

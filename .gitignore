@@ -1,0 +1,50 @@
+# IDE
+.idea/
+*.iml
+.trae/
+.cursorignore
+.cursor/
+
+# Build output
+target/
+dist/
+*.class
+*.jar
+*.war
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Environment & secrets
+.env
+login.json
+cookies.txt
+*.pem
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files
+123.html
+
+# Config with secrets
+OSS配置.txt
+
+# Documents
+*.docx
+
+# Diagrams
+diagrams_png/
+
+# Tool scripts
+convert_to_docx.py
+generate_api_doc.py
+generate_design_doc.py
+
+# Python deps
+requirements.txt

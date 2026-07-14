@@ -1,0 +1,32 @@
+<view class="mine-page">
+  <view class="user-section">
+    <view class="user-avatar">👤</view>
+    <view class="user-info" bindtap="onEditName">
+      <view class="user-name">{{userPhone}}</view>
+      <view class="user-hint">共 {{total}} 个订单 · 点击修改姓名</view>
+    </view>
+  </view>
+
+  <view class="order-list">
+    <view wx:for="{{orders}}" wx:key="id" class="order-card" data-id="{{item.id}}" bindtap="onOrderTap">
+      <view class="order-header">
+        <text class="order-table">{{item.tableNo}}</text>
+        <text class="order-status {{'s' + (paying(item) ? 0 : item.status)}}">{{getStatusText(item)}}</text>
+      </view>
+      <view class="order-dishes">
+        <text wx:for="{{item.items}}" wx:key="id">{{item.dishName}}<text wx:if="{{index < item.items.length - 1}}">、</text></text>
+      </view>
+      <view class="order-footer">
+        <view class="order-footer-left">
+          <text class="order-time">{{item.createTime}}</text>
+          <text class="order-price">¥{{item.totalPrice}}</text>
+        </view>
+        <button wx:if="{{item.paymentStatus === 0}}" class="pay-btn" data-id="{{item.id}}" bindtap="onPayTap">去支付</button>
+      </view>
+    </view>
+    <view wx:if="{{loading}}" class="state-text">加载中...</view>
+    <view wx:elif="{{orders.length === 0 && !loading}}" class="state-text">暂无订单</view>
+    <view wx:elif="{{!loading && hasMore}}" class="load-more" bindtap="onLoadMore">加载更多</view>
+    <view wx:elif="{{!loading && orders.length > 0 && !hasMore}}" class="state-text">已加载全部</view>
+  </view>
+</view>
