@@ -7,21 +7,41 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/kitchen_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD}
+    username: root
+    password: 123456
+
+  redis:
+    # 你的虚拟机 Redis 地址
+    host: 192.168.153.128
+    port: 6379
+    # 如果 redis.conf 里没设 requirepass，把这行注释掉
+    password: qwe123
+    database: 1
+    # 连接 / 读取超时
+    timeout: 3000ms
+    connect-timeout: 2000ms
+
+    # 默认客户端就是 Lettuce
+    lettuce:
+      pool:
+        max-active: 20         # 最大连接数，按并发调
+        max-idle: 10           # 最大空闲
+        min-idle: 5            # 最小空闲，预热用
+        max-wait: 2000ms       # 拿不到连接最多等 2s，别用 -1 无限等
+        time-between-eviction-runs: 30000ms
 
 oss:
-  endpoint: ${OSS_ENDPOINT:oss-cn-beijing.aliyuncs.com}
+  endpoint: oss-cn-beijing.aliyuncs.com
   access-key-id: ${OSS_ACCESS_KEY_ID}
   access-key-secret: ${OSS_ACCESS_KEY_SECRET}
-  bucket-name: ${OSS_BUCKET_NAME:hccy}
+  bucket-name: hccy
 
 ai:
   image:
-    endpoint: ${AI_IMAGE_ENDPOINT:https://apihub.agnes-ai.com/v1/images/generations}
-    api-key: ${AI_IMAGE_API_KEY}
-    model: ${AI_IMAGE_MODEL:agnes-image-2.0-flash}
-    size: ${AI_IMAGE_SIZE:1024x1024}
+    endpoint: https://apihub.agnes-ai.com/v1/images/generations
+    api-key: ${AI_API_KEY}
+    model: agnes-image-2.0-flash
+    size: 1024x1024
 
 mybatis-plus:
   type-aliases-package: com.kitchen.entity
